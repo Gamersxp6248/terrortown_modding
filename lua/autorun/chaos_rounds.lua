@@ -32,7 +32,6 @@ local CHAOS_STATE_ROUND_START = 2
 local CHAOS_STATE_ROUND_FINISH = 3
 
 if SERVER then
-	resource.AddFile("vgui/ttt/icon_chaos_round.vtf")
 	resource.AddFile("vgui/ttt/icon_chaos_round.vmt")
 
 	util.AddNetworkString(TAG)
@@ -107,8 +106,8 @@ if SERVER then
 	hook.Add("TTTEndRound", TAG, function()
 		end_chaos_round()
 
-		-- add 10% every round, but cap it to 75% overall
-		BONUS_CHANCE_MULT = math.min(72, BONUS_CHANCE_MULT + 10)
+		-- add 10% (1%) every round, but cap it to 75% (8%) overall
+		BONUS_CHANCE_MULT = math.min(8, BONUS_CHANCE_MULT + 1) -- People whining about too much chaos, make it a little rare (~25% chance per map)
 
 		timer.Simple(0, select_chaos_round)
 	end)
@@ -162,7 +161,7 @@ if CLIENT then
 			icon:SetWide(110 * COEF_W)
 			icon:Dock(LEFT)
 			icon:DockMargin(10 * COEF_W, 10 * COEF_W, 10 * COEF_W, 10 * COEF_W)
-			local ICON_MAT = Material("vgui/ttt/icon_chaos_round.vtf")
+			local ICON_MAT = Material("vgui/ttt/icon_chaos_round.vmt") -- ??? Call the VMT not the VTF
 			function icon:Paint(w, h)
 				paint_bg(w, h, 255, 255, 255, 255, ICON_MAT)
 			end
